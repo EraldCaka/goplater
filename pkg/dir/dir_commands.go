@@ -21,7 +21,7 @@ func CreateDir(dirName string) error {
 			fmt.Println("Error creating directory:", err)
 			return err
 		}
-		fmt.Println("Directory created successfully:", dirName)
+		//fmt.Println("Directory created successfully:", dirName)
 	} else {
 		fmt.Println("Directory already exists:", dirName)
 	}
@@ -39,6 +39,6 @@ func CreateGoMod(username, projectName, directory string) error {
 		fmt.Println("Error creating Go module:", err)
 		return err
 	}
-	fmt.Println("Go module created successfully")
+	//fmt.Println("Go module created successfully")
 	return nil
 }

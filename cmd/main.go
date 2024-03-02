@@ -32,12 +32,12 @@ func main() {
 	fmt.Println("Select the project template you want to create:")
 	choice := dir.CliScan(scanner)
 	switch choice {
-	case "1":
+	case "1": // empty project
 		if err := empty.CreateMainGo("cmd"); err != nil {
 			return
 		}
 		break
-	case "2":
+	case "2": //gin project
 		if err := gin.CreateGoMod(); err != nil {
 			return
 		}
@@ -45,6 +45,21 @@ func main() {
 			return
 		}
 		if err := gin.CreateDotEnv(); err != nil {
+			return
+		}
+		if err := gin.CreateMainGo(githubUser, projectName, "cmd"); err != nil {
+			return
+		}
+		if err := gin.CreateUtilEnvs("util"); err != nil {
+			return
+		}
+		if err := gin.CreateUserType("types"); err != nil {
+			return
+		}
+		if err := gin.CreateUserHandler(githubUser, projectName, "handlers"); err != nil {
+			return
+		}
+		if err := gin.CreateDbConfigs(githubUser, projectName, "db"); err != nil {
 			return
 		}
 		break

@@ -1,1 +1,52 @@
 package gin
+
+import (
+	"fmt"
+	"github.com/EraldCaka/goplater/pkg/dir"
+	"os"
+	"path/filepath"
+)
+
+func CreateUtilEnvs(directory string) error {
+	if err := dir.CreateDir(directory); err != nil {
+		return err
+	}
+	filePath := filepath.Join(directory, "util.go")
+
+	file, err := os.Create(filePath)
+	if err != nil {
+		fmt.Println("Error creating util.go file:", err)
+		return err
+	}
+	defer file.Close()
+
+	_, err = file.WriteString(`package util
+
+import (
+	"github.com/joho/godotenv"
+	"log"
+	"os"
+)
+
+var (
+	DB_URL string
+	SECRET string
+)
+
+func InitEnvironmentVariables() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	DB_URL = os.Getenv("DB_URL")
+	SECRET = os.Getenv("SECRET")
+}
+`)
+	if err != nil {
+		fmt.Println("Error writing to util.go file:", err)
+		return err
+	}
+	fmt.Println("util.go file created successfully")
+	return nil
+}
