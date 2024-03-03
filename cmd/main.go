@@ -27,7 +27,7 @@ func main() {
 		return
 	}
 	fmt.Println("\n-------------------------------")
-	fmt.Println("1 - empty project\n2 - gin project\n3 - fiber project\n4 - echo project\n5 - mux project\n6 - standard http")
+	fmt.Println("1 - empty project\n2 - gin project\n3 - standard http")
 	fmt.Println("Select the project template you want to create:")
 	choice := dir.CliScan(scanner)
 	switch choice {
@@ -83,7 +83,9 @@ func main() {
 			return
 		}
 		break
-
+	case "3": //standard http project
+		fmt.Println("Still in progress ...")
+		break
 	}
 
 }
