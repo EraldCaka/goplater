@@ -30,7 +30,6 @@ import (
 
 var (
 	DB_URL string
-	SECRET string
 )
 
 func InitEnvironmentVariables() {
@@ -40,14 +39,6 @@ func InitEnvironmentVariables() {
 	}
 
 	DB_URL = os.Getenv("DB_URL")
-	SECRET = os.Getenv("SECRET")
-	func() {
-		executeMigrateScript := exec.Command("make", "migrate")
-		if err := executeMigrateScript.Run(); err != nil {
-			fmt.Println("Error executing migration scripts:", err)
-			return
-		}
-	}()
 }
 `)
 	if err != nil {

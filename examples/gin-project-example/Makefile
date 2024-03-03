@@ -13,7 +13,7 @@ migrate:
 drop:
 	@migrate -path db/migrations -database "$(DB_URL_MIGRATE)" -verbose down
 
-create-migration-sql:
+create:
 	@migrate create -ext sql -dir db/migrations gin-project-example
 
 tidy:

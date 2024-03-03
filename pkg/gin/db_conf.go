@@ -34,7 +34,6 @@ func CreateMigrations(projectName, directory string) error {
 	if err := dir.CreateDir(dbDirectory); err != nil {
 		return err
 	}
-
 	filePath := filepath.Join(dbDirectory, projectName+"_up.sql")
 	file, err := os.Create(filePath)
 	if err != nil {
