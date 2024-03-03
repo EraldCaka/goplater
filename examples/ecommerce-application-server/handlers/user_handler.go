@@ -1,32 +1,10 @@
-package gin
-
-import (
-	"fmt"
-	"github.com/EraldCaka/goplater/pkg/dir"
-	"os"
-	"path/filepath"
-)
-
-func CreateUserHandler(username, projectName, directory string) error {
-	if err := dir.CreateDir(directory); err != nil {
-		return err
-	}
-	filePath := filepath.Join(directory, "user_handler.go")
-
-	file, err := os.Create(filePath)
-	if err != nil {
-		fmt.Println("Error creating user_handler.go file:", err)
-		return err
-	}
-	defer file.Close()
-
-	_, err = file.WriteString(fmt.Sprintf(`package handlers
+package handlers
 
 import (
 	"net/http"
 	"github.com/gin-gonic/gin"
-	"github.com/%s/%s/db"
-	"github.com/%s/%s/types"
+	"github.com/EraldCaka/ecommerce-application-server/db"
+	"github.com/EraldCaka/ecommerce-application-server/types"
 )
 
 func GetAllUsers(ctx *gin.Context, dbConn *db.Postgres) {
@@ -60,13 +38,4 @@ func CreateUser(ctx *gin.Context, dbConn *db.Postgres) {
 		return
 	}
 	ctx.JSON(http.StatusCreated, userID)
-}
-`, username, projectName, username, projectName))
-
-	if err != nil {
-		fmt.Println("Error writing to user_handler.go file:", err)
-		return err
-	}
-	fmt.Println("user_handler.go file created successfully")
-	return nil
 }

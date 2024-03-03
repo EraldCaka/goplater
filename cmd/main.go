@@ -13,7 +13,6 @@ func main() {
 	fmt.Println("\n _____ _____ _____ __    _____ _____ _____ _____ \n|   __|     |  _  |  |  |  _  |_   _|   __| __  |\n|  |  |  |  |   __|  |__|     | | | |   __|    -|\n|_____|_____|__|  |_____|__|__| |_| |_____|__|__|\n\n")
 
 	scanner := bufio.NewScanner(os.Stdin)
-
 	fmt.Print("Your github name: ")
 	githubUser := dir.CliScan(scanner)
 
@@ -44,7 +43,7 @@ func main() {
 		if err := gin.CreateGitignore(); err != nil {
 			return
 		}
-		if err := gin.CreateDotEnv(); err != nil {
+		if err := gin.CreateDotEnv(projectName); err != nil {
 			return
 		}
 		if err := gin.CreateMainGo(githubUser, projectName, "cmd"); err != nil {
@@ -62,7 +61,29 @@ func main() {
 		if err := gin.CreateDbConfigs(githubUser, projectName, "db"); err != nil {
 			return
 		}
+		if err := gin.CreatePasswordHasher("util"); err != nil {
+			return
+		}
+		if err := gin.CreateUserQueries(githubUser, projectName, "db"); err != nil {
+			return
+		}
+		if err := gin.CreateRouter(githubUser, projectName, "router"); err != nil {
+			return
+		}
+		if err := gin.CreateMakefile(projectName); err != nil {
+			return
+		}
+		if err := gin.CreateMigrations(projectName, "migrations"); err != nil {
+			return
+		}
+		if err := gin.CreateDockerCompose(projectName); err != nil {
+			return
+		}
+		if err := gin.CreateDocker(); err != nil {
+			return
+		}
 		break
+
 	}
 
 }
